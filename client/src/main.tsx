@@ -7,6 +7,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 // Import the main app component
 import App from "./App";
+import "./App.css";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
