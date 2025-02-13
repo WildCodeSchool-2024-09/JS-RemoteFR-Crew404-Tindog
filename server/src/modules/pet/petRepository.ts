@@ -34,6 +34,15 @@ class PetRepository {
     return rows as Pet[];
   }
 
+  async readAllMyPet(owner_id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM pets WHERE owner_id = ?",
+      [owner_id],
+    );
+
+    return rows as Pet[];
+  }
+
   async update(id: number, pet: Partial<Omit<Pet, "id" | "created_at">>) {
     const fields = Object.keys(pet)
       .map((key) => `${key} = ?`)
@@ -49,8 +58,11 @@ class PetRepository {
     return this.read(id);
   }
 
-  async delete(id: number) {
-    await databaseClient.query<Result>("DELETE FROM pets WHERE id = ?", [id]);
+  async delete(id: number, owner_id: number) {
+    await databaseClient.query<Result>(
+      "DELETE FROM pets WHERE id = ? AND owner_id = ?",
+      [id, owner_id],
+    );
     return true;
   }
 }
