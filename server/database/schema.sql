@@ -3,7 +3,7 @@ CREATE TABLE users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
@@ -59,9 +59,10 @@ CREATE TABLE messages (
 
 
 -- INSÉRER DES UTILISATEURS
-INSERT INTO users (username, email, password_hash) VALUES
-('Alice', 'alice@mail.com', 'alice'),
-('Bob', 'bob@mail.com', 'bob');
+-- Mot de passe : "azerty"
+INSERT INTO users (username, email, password) VALUES
+('Alice', 'alice@mail.com', '$argon2id$v=19$m=65536,t=4,p=1$E0fVFp3W9z22B8mc8JI8+g$Gv+jX4UgSVYzjXFPeSGbwHHiNAm0l1QTkq9QmaDb7AZ2BMV2q4jzH2174dlHuWpS0onRaaATczJNxsOG4/Wy6Q'),
+('Bob', 'bob@mail.com', '$argon2id$v=19$m=65536,t=4,p=1$E0fVFp3W9z22B8mc8JI8+g$Gv+jX4UgSVYzjXFPeSGbwHHiNAm0l1QTkq9QmaDb7AZ2BMV2q4jzH2174dlHuWpS0onRaaATczJNxsOG4/Wy6Q');
 
 -- INSÉRER DES ANIMAUX
 INSERT INTO pets (owner_id, name, species, breed, age, description, photo_url) VALUES
