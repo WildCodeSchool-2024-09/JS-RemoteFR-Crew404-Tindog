@@ -15,4 +15,18 @@ router.post("/api/items", itemActions.add);
 
 /* ************************************************************************* */
 
+import { hashPassword } from "./middlewares/argonMid";
+// Define auth routes
+import userActions from "./modules/user/userActions";
+
+router.post("/register", userActions.register);
+router.post("/login", userActions.login);
+
+/* ************************************************************************* */
+// A partir d'ici, les routes nécessitent un token JWT valide
+import { jwtMid } from "./middlewares/jwtMid";
+router.use(jwtMid);
+
+/* ************************************************************************* */
+
 export default router;
