@@ -21,28 +21,30 @@ CREATE TABLE pets (
     FOREIGN KEY (owner_id) REFERENCES users(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
--- TABLE LIKES (un animal peut liker un autre)
+-- TABLE LIKES (un utilisateur peut liker un profil d'animal)
 CREATE TABLE likes (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    liker_pet_id INT NOT NULL,  
-    liked_pet_id INT NOT NULL,  
+    user_id INT NOT NULL,     
+    pet_id INT NOT NULL, 
     liked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (liker_pet_id) REFERENCES pets(id) ON DELETE CASCADE,
-    FOREIGN KEY (liked_pet_id) REFERENCES pets(id) ON DELETE CASCADE,
-    UNIQUE (liker_pet_id, liked_pet_id) 
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (pet_id) REFERENCES pets(id) ON DELETE CASCADE,
+    UNIQUE (user_id, pet_id)  
 ) ENGINE=InnoDB;
+
 
 -- TABLE MATCHES (quand deux animaux se likent mutuellement)
 CREATE TABLE matches (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    pet1_id INT NOT NULL,
-    pet2_id INT NOT NULL,
+    user1_id INT NOT NULL,  
+    user2_id INT NOT NULL,  
     matched_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (pet1_id) REFERENCES pets(id) ON DELETE CASCADE,
-    FOREIGN KEY (pet2_id) REFERENCES pets(id) ON DELETE CASCADE,
-    CHECK (pet1_id < pet2_id),  -- Empêche d'enregistrer un match dans l'ordre inverse
-    UNIQUE (pet1_id, pet2_id)   -- Évite les doublons
+    FOREIGN KEY (user1_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (user2_id) REFERENCES users(id) ON DELETE CASCADE,
+    CHECK (user1_id < user2_id),  
+    UNIQUE (user1_id, user2_id) 
 ) ENGINE=InnoDB;
+
 
 -- TABLE MESSAGES (les discussions après un match)
 CREATE TABLE messages (

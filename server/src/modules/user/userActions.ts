@@ -65,7 +65,56 @@ const login: RequestHandler = async (req, res, next) => {
   }
 };
 
+const logout: RequestHandler = async (req, res, next) => {
+  try {
+    res.clearCookie("token").json({ message: "Logged out" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const update: RequestHandler = async (req, res, next) => {
+  if (!req.user) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
+  try {
+    const user = await userRepository.update(req.user.id, req.body);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    next(error);
+  }
+};
+
+const me: RequestHandler = async (req, res, next) => {
+  if (!req.user) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
+  try {
+    const response = await userRepository.read(req.user.id);
+    if (!response) {
+      res.status(404).json({ message: "User not found" });
+      return;
+    }
+
+    const currentUser = {
+      ...response,
+      password: undefined,
+    };
+
+    res.json(currentUser);
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+    next(error);
+  }
+};
+
 export default {
   login,
   register,
+  logout,
+  update,
+  me,
 };
