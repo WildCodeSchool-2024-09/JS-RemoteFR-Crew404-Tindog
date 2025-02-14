@@ -68,9 +68,9 @@ INSERT INTO users (username, email, password) VALUES
 
 -- INSÉRER DES ANIMAUX
 INSERT INTO pets (owner_id, name, species, breed, age, description, photo_url) VALUES
-(1, 'Bella', 'Chien', 'Labrador', 3, 'J\'aime les balades en forêt', 'https://placedog.net/300/300'),
-(1, 'Milo', 'Chat', 'Siamois', 2, 'Je suis très câlin', 'https://placekitten.com/300/300'),
-(2, 'Buddy', 'Chien', 'Golden Retriever', 4, 'J\'aime jouer avec les enfants', 'https://placedog.net/300/300'),
-(2, 'Luna', 'Chat', 'Main coon', 5, 'J\'adore grimper partout', 'https://placekitten.com/300/300');
+(1, 'Bella', 'Chien', 'Labrador', 3, 'J\'aime les balades en forêt', 'https://placedog.net/510'),
+(1, 'Milo', 'Chat', 'Siamois', 2, 'Je suis très câlin', 'https://cataas.com/cat'),
+(2, 'Buddy', 'Chien', 'Golden Retriever', 4, 'J\'aime jouer avec les enfants', 'https://placedog.net/500'),
+(2, 'Luna', 'Chat', 'Main coon', 5, 'J\'adore grimper partout', 'https://cataas.com/cat');
 
 

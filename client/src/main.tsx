@@ -6,8 +6,14 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 /* ************************************************************************* */
 
 // Import the main app component
-import App from "./App";
 import "./App.css";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./contexts/authContext";
+import Layout from "./pages/Layout";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Swipe from "./pages/Swipe/Swipe";
+import api from "./services/api";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -22,7 +28,35 @@ import "./App.css";
 const router = createBrowserRouter([
   {
     path: "/", // The root path
-    element: <App />, // Renders the App component for the home page
+    element: <Layout />, // Renders the App component for the home page
+    children: [
+      {
+        path: "/",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />, // Renders the Register component
+      },
+      {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            path: "/swipe",
+            element: <Swipe />,
+            loader: async () => {
+              try {
+                const reponse = await api.get("/pets");
+                return reponse.data;
+              } catch (error) {
+                console.error(error);
+                return;
+              }
+            },
+          },
+        ],
+      },
+    ],
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);
@@ -38,7 +72,9 @@ if (rootElement == null) {
 // Render the app inside the root element
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </StrictMode>,
 );
 
