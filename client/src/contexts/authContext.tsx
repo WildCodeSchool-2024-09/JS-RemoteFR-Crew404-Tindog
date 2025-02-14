@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: ChildrenType) => {
 
   const handleLogout = async () => {
     try {
-      await api.post("/api/logout");
+      await api.post("/logout");
       setUser(null);
     } catch (error) {
       console.error(error);

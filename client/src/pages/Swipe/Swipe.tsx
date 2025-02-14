@@ -157,7 +157,7 @@ function Swipe() {
             <TinderCard
               ref={childRefs.current[index]}
               className="swipe"
-              key={pet.name}
+              key={pet.id}
               onSwipe={(dir) => swiped(dir, index)}
               onCardLeftScreen={() =>
                 outOfFrame({ name: pet.name, idx: index })

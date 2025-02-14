@@ -11,6 +11,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { AuthProvider } from "./contexts/authContext";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
+import Profil from "./pages/Profil/Profil";
 import Register from "./pages/Register";
 import Swipe from "./pages/Swipe/Swipe";
 import api from "./services/api";
@@ -48,6 +49,21 @@ const router = createBrowserRouter([
               try {
                 const reponse = await api.get("/pets");
                 return reponse.data;
+              } catch (error) {
+                console.error(error);
+                return;
+              }
+            },
+          },
+          {
+            path: "/profile",
+            element: <Profil />,
+            loader: async () => {
+              try {
+                const rep = await api.get("/me");
+                const pets = await api.get("/my-pets");
+
+                return { user: rep.data, myPets: pets.data };
               } catch (error) {
                 console.error(error);
                 return;

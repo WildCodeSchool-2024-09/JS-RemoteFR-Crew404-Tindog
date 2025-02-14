@@ -13,7 +13,7 @@ import userActions from "./modules/user/userActions";
 
 router.post("/register", userActions.register);
 router.post("/login", userActions.login);
-router.get("/logout", userActions.logout);
+router.post("/logout", userActions.logout);
 
 /* ************************************************************************* */
 // A partir d'ici, les routes nécessitent un token JWT valide
