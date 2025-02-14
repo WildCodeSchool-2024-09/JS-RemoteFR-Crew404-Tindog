@@ -6,8 +6,12 @@ import petRepository from "./petRepository";
  * Get all pets from the database
  */
 const getAll: RequestHandler = async (req, res, next) => {
+  if (!req.user) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
   try {
-    const pets = await petRepository.readAll();
+    const pets = await petRepository.readAll(req.user.id);
     res.json(pets);
   } catch (error: unknown) {
     // Handle error

@@ -41,7 +41,7 @@ class LikeRepository {
           "INSERT INTO matches (user1_id, user2_id) VALUES (?, ?) ON DUPLICATE KEY UPDATE matched_at = NOW()",
           [user1_id, user2_id],
         );
-        return { message: "Like registered and match created!" };
+        return { message: "match!" };
       }
 
       return { message: "Like registered!" };

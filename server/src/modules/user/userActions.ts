@@ -53,13 +53,19 @@ const login: RequestHandler = async (req, res, next) => {
       return;
     }
 
+    const sendUser = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    };
+
     const token = createToken(user);
     res
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
       })
-      .json({ message: "Logged in" });
+      .json(sendUser);
   } catch (error) {
     next(error);
   }

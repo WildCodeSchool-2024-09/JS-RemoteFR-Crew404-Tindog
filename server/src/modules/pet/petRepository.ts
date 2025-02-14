@@ -29,8 +29,11 @@ class PetRepository {
     return rows[0] as Pet;
   }
 
-  async readAll() {
-    const [rows] = await databaseClient.query<Rows>("SELECT * FROM pets");
+  async readAll(id: number) {
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT * FROM pets WHERE owner_id != ?",
+      [id],
+    );
     return rows as Pet[];
   }
 
